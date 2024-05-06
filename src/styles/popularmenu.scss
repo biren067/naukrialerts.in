@@ -1,0 +1,47 @@
+
+.popularmenu{
+    flex:2;
+    background-color:rgb(157, 219, 115);
+    &_top{
+        font-size: 10px;
+        font-family: 'Courier New', Courier, monospace;
+        padding: 5px 0px;
+    }
+    &_mostpopular{
+        margin: 20px 0px;
+        &_title{
+            font-size: 20px !important;
+            font-weight:900;
+        }
+    }
+}
+
+.popularcontent{
+    padding:10px 5px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: start;
+    margin:5px 0px;
+    &_category{
+        border-radius: 20px;
+        border:1px solid black;
+        background-color: rgb(119, 197, 119);
+        color:white;
+    }
+    &_desc{
+        font: size 18px;
+        font-weight: 400;
+    }
+    &_bottom{
+        font-size: 8px;
+        display:flex;
+        gap:10px;
+        &_author{
+            text-transform: capitalize;
+        }
+        &_date{
+            color: rgb(129, 126, 126);;
+        }
+    }
+}

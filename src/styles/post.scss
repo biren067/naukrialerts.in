@@ -1,0 +1,21 @@
+@import "variables";
+@import "breakpoints";
+.post{
+    padding:20px 10px;
+    &_reactquill{
+        width:100%;
+
+    }
+}
+
+
+
+.addPostButton{
+    margin-top:20px;
+    display: flex;
+    gap:30px;
+    &_newbuttons{
+        display: flex;
+        gap:20px;
+    }
+}

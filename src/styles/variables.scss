@@ -1,0 +1,33 @@
+$backgroundColor:white;
+$softBackgroundColor:#f0f0f0;
+$textColor:black;
+$buttonbackgroundColor:rgb(25, 221, 195);;
+$borderColor:rgb(255, 255, 255);
+$softTextColor:#626262;
+$backgroundColorDark:rgba(7, 24, 61, 0.527);
+$backgroundColorLight:white;
+
+
+$darkBackgroundColor:rgb(2, 2, 53);
+$darkTextColor:white;
+  
+
+@mixin custombutton{
+    width:max-content;
+    background-color: $buttonbackgroundColor;
+    color: $textColor;
+    border: 1px solid blue;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover{
+        background-color: $darkBackgroundColor;
+        color:$darkTextColor;
+        border: 1px solid $borderColor;
+    }
+}
+

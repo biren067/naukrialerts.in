@@ -1,0 +1,16 @@
+@import "variables";
+@import "breakpoints";
+
+.addpost{
+    // padding: 10px 5px;
+    color:white;
+    background-color: rgb(23, 23, 58);
+    // margin:5px;
+    &_form{
+        padding: 5px 2px;
+        &_filedcontrol{
+            padding:5px 2px;
+            
+        }
+    }
+}

@@ -1,0 +1,12 @@
+@import "variables";
+@import "breakpoints";
+
+.authlinks{
+    &_logout{
+        cursor: pointer;
+    }
+    &_logoutarea{
+        display: flex;
+        gap:10px;
+    }
+}

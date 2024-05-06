@@ -1,0 +1,56 @@
+@import "variables";
+@import "breakpoints";
+
+:root{
+    background-color: $backgroundColor;
+    color:$textColor;
+    &.dark{
+        background-color: $darkBackgroundColor;
+        color:$darkTextColor;
+    }
+
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration: none;
+}
+
+.container{
+    min-height: 100vh;
+    // background-color: $backgroundColor;
+    // color:$textColor;
+}
+
+.wrapper{
+    max-width: 1526px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: $backgroundColor;
+    color:$textColor;
+}
+
+.cardContainer{
+    display: flex;
+    gap: 50px;
+  }
+
+.ql-container {
+    font-size: 30px !important;
+}
+.quill > .ql-bubble >.ql-editor.ql.blank::before{
+    color: white;
+    background-color: rgb(7, 70, 99);;
+}

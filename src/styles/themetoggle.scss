@@ -1,0 +1,40 @@
+@import "variables";
+@import "breakpoints";
+
+$themebackgroundColor:rgb(0, 0, 0);
+$themeIconColor:rgb(252, 252, 3);
+$themeballColor:rgb(253, 0, 0);
+
+.theme{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 50px;
+    height: 22px;
+    width:50px;
+    // border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: $themebackgroundColor;
+    color:$themeIconColor;
+    // padding: 2px;
+    // padding-right: 1px;
+    position: relative;
+    &_light{
+        font-size: 17px;
+        padding: 1px;
+    }
+    &_ball{
+        padding-top:auto;
+        padding-bottom:auto;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: $themeballColor;
+        // color:$themeIconColor;
+        position:absolute;
+        left:1px;
+    }
+    &_dark{
+        font-size: 17px;
+        padding: 1px;
+    }
+}

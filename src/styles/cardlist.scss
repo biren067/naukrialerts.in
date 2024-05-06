@@ -1,0 +1,12 @@
+.cardlist{
+    flex:5;
+    &_title{
+        text-align: start;
+        padding:5px 2px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    &_cards{
+        padding:5px;
+    }
+}

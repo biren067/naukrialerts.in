@@ -1,0 +1,13 @@
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid rgb(54, 54, 161);
+    color:white;
+    font-weight: 500;
+    &_item{
+        background-image: linear-gradient(to bottom, rgb(13, 51, 156), rgb(16, 2, 92));
+        padding:15px 3px;
+        font-weight: 500;
+        cursor:pointer;
+    }
+}
