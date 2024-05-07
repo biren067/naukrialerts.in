@@ -8,9 +8,9 @@ function CardList() {
     <div className='cardlist'>
       <div className='cardlist_title'>Recent Posts</div>
       <div className='cardlist_cards'>
-      <Card title="Fashion on Dress" category="Fashion"/>
-      <Card title="Coding on python" category="coding"/>
-      <Card title="Travelling to Goa" category="Travel"/>
+      <Card title="Indian Navy Agniveer (MR) 02/2024" category="Central"/>
+      <Card title="Banking IBPS" category="Banking"/>
+      <Card title="RRB Jharkhand" category="Banking"/>
       <Card title="Style on architecture" category="Style"/>
       <Card title="Fashion on car" category="Fashion"/>
       <Card title="Delicious Food" category="Food"/>

@@ -23,6 +23,7 @@ class JobPost(APIView):
         serializer = PostSerializer(data=message)
         if serializer.is_valid():
             serializer.save()
+            print(":::=>",serializer.data)
             return Response(serializer.data)
         else:
             print("*******************ERROR",serializer.errors)
@@ -43,3 +44,12 @@ def getAdvNo(request,*args,**kwargs):
         print("********************************",query_set)
         return Response(commonResponse('Name already exists',status.HTTP_400_BAD_REQUEST))
     return Response('valid advertisement',status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def getJobInfo(request, link_post_name, *args, **kwargs):
+    query_set = Post.objects.filter(link_post_name=link_post_name)
+    serializer = PostSerializer(query_set, many=True)  # Use many=True if queryset can have multiple objects
+    if serializer.data:
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)

@@ -4,6 +4,7 @@ export const states_union_territories = [
    'Assam',
    'Bihar',
    'Chhattisgarh',
+   'Delhi',
    'Goa',
    'Gujarat',
    'Haryana',
