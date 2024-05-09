@@ -30,3 +30,18 @@ export const states_union_territories = [
    'West Bengal',
    'Andaman and Nicobar Islands',
 ]
+
+export const categories = [
+   'Banking',
+   'Defence',
+   'Engineering',
+   'Finance',
+   'Teaching',
+   'UPSC',
+   'Railways',
+   'State SSC',
+   'defence',
+   'Miscelleneous'
+
+
+]

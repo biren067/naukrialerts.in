@@ -1,13 +1,35 @@
+@import "breakpoints";
 .sidebar{
+    // margin-top:0px;
     display: flex;
     flex-direction: column;
-    border-bottom: 2px solid rgb(54, 54, 161);
-    color:white;
+    border-right: 2px solid rgb(54, 54, 161);
+    color:$headerLinkColor;
     font-weight: 500;
-    &_item{
-        background-image: linear-gradient(to bottom, rgb(13, 51, 156), rgb(16, 2, 92));
-        padding:15px 3px;
-        font-weight: 500;
-        cursor:pointer;
+    
+    overflow-x: hidden;
+    overflow-y: scroll; 
+    // height: 100vh;
+    &::-webkit-scrollbar {
+        width: 0; /* Set the width of the scrollbar to 0 */
+        background-color: transparent; /* Set the background color of the scrollbar to transparent */
     }
+    &_item{
+        // background-image: linear-gradient(to bottom, rgb(13, 51, 156), rgb(16, 2, 92));
+        background-color: $backgroundSecondaryColor;
+        padding:15px 10px;
+        font-weight: 500;
+        cursor:pointer; 
+        &:hover{
+            background-color: $backgroundPrimaryColor;
+            color:$TextLinkMoverOverColor;
+            // color:red;
+        }
+    }
+
 }
+// /* Hide the scrollbar for WebKit browsers */
+// .sidebar::-webkit-scrollbar {
+//     width: 0; /* Set the width of the scrollbar to 0 */
+//     background-color: transparent; /* Set the background color of the scrollbar to transparent */
+// }

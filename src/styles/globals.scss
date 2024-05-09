@@ -2,7 +2,7 @@
 @import "breakpoints";
 
 :root{
-    background-color: $backgroundColor;
+    background-color: $backgroundColorGray;
     color:$textColor;
     &.dark{
         background-color: $darkBackgroundColor;
@@ -28,8 +28,10 @@ a{
 
 .container{
     min-height: 100vh;
-    // background-color: $backgroundColor;
-    // color:$textColor;
+    background-color: $LightbackgroundPrimay;
+    color:$textColor;
+    // font-size: 40px;
+    // font-weight: 600;
 }
 
 .wrapper{
@@ -47,10 +49,10 @@ a{
     gap: 50px;
   }
 
-.ql-container {
-    font-size: 30px !important;
-}
-.quill > .ql-bubble >.ql-editor.ql.blank::before{
-    color: white;
-    background-color: rgb(7, 70, 99);;
-}
+// .ql-container {
+//     font-size: 30px !important;
+// }
+// .quill > .ql-bubble >.ql-editor.ql.blank::before{
+//     color: white;
+//     background-color: rgb(7, 70, 99);;
+// }

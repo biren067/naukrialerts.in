@@ -1,0 +1,97 @@
+@import "variables";
+@import "breakpoints";
+
+.jobpost{
+    padding:20px 10px;
+    &_element{  
+        display: flex;
+        flex-direction: row;
+        // margin:10px 5px;
+        width:100%;
+        border-radius: 2px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        @include sm {
+            display: flex;
+            flex-direction: column;
+            font-size: 15px;
+          }
+        &_label{
+            padding:5px 5px;
+            @include sm{
+                padding: 2px 2px;
+            }
+            flex:1;
+        }
+        &_answer{
+            padding:5px 5px;
+            @include sm{
+                padding: 2px 2px;
+            }
+            flex:2;
+            &_box{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                min-width: 300px;
+                align-items: start;
+                gap:5px;
+                width:max-content;
+                &_inner{
+                    width: 100%;
+                    display: flex;
+                    @include sm{
+                        flex-direction: column;
+                    }
+                    justify-content: between;
+                    &_label{
+                        flex:1;
+                    }
+                    &_answer{
+                        flex:1;
+                        
+                    }
+                }
+                // &_others{
+                //     display: flex;
+                //     justify-content: between;
+                //     width: 100%;
+                //     @include sm{
+                //         flex-direction: column;
+                //     }
+                //     &_label{
+                //         flex:1;
+                //     }
+                //     &_answer{
+                //         flex:1;
+                //     }
+                // }
+                // &_ph{
+                //     display: flex;
+                //     justify-content: between;
+                //     width: 100%;@include sm{
+                //         flex-direction: column;
+                //     }
+                //     &_label{
+                //         flex:1;
+                //     }
+                //     &_answer{
+                //         flex:1;
+                //     }
+                // }
+            }
+            
+        }
+    }
+    &_dates{
+        &_heading{
+            padding:5px 5px;
+            font-size: 25px;
+            font-weight: 600;
+            @include sm{
+                padding: 2px 2px;
+                font-size:15px;
+                font-weight: 600;
+            }
+        }
+    }
+}

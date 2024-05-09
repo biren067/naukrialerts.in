@@ -1,27 +1,46 @@
-$backgroundColor:white;
-$softBackgroundColor:#f0f0f0;
-$textColor:black;
+$LightbackgroundPrimay:#fafafa;
+$DarkbackgroundPrimay:rgb(2, 28, 58);
+$LightbackgroundBody:white;
+$backgroundPrimayDark:rgb(2, 28, 58);
 $buttonbackgroundColor:rgb(25, 221, 195);;
-$borderColor:rgb(255, 255, 255);
-$softTextColor:#626262;
 $backgroundColorDark:rgba(7, 24, 61, 0.527);
-$backgroundColorLight:white;
-
-
+$backgroundColorGray:#f3f3f3;
+$backgroundColor:#ca1c1c;
+$softBackgroundColor:#f0f0f0;
 $darkBackgroundColor:rgb(2, 2, 53);
+$buttonbackgroundButtonColor:#4FCF80;       
+$borderColor:#4FCF80;
+$backgroundPrimaryColor:#2e3c49;
+$backgroundSecondaryColor:#222d38;
+$backgroundTernaryColor:#22282e;
+
+$textColor:black;
+$softTextColor:#626262;
 $darkTextColor:white;
+$TextButtonColor:#FFFFFF;
+$headerLinkColor:#babfc5;
+$TextLinkMoverOverColor:#d9dee4;
+// $borderColor:rgb(255, 255, 255);
+
+$LightLabelColor:rgb(62, 223, 62);
+$LightAnswerColor:rgb(5, 128, 70);
   
 
+
 @mixin custombutton{
-    width:max-content;
-    background-color: $buttonbackgroundColor;
-    color: $textColor;
-    border: 1px solid blue;
-    border-radius: 5px;
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    font-weight: 700;
+    // width:max-content;
+    min-width: 150px;
+    background-color: $buttonbackgroundButtonColor;
+    color: $TextButtonColor;
+    border: 1px solid #4FCF80;
+    text-transform: uppercase;
+    border-radius: .25rem;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    // font-family: 'Poppins,sans-serif';
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     &:hover{

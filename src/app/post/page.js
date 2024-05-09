@@ -58,7 +58,7 @@ function page() {
             {...prev,['link_post_name']:finalTitle}
         )
         )
-        console.log("form data::",formData)
+        console.log("Sending from  FrontEnd::",formData)
         // try
         // {
         //     const response = await axios.post(url,formData)

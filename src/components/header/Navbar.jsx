@@ -24,16 +24,16 @@ function Navbar() {
           NaukriAlerts
         </div>
         <div className='navbar_links'>
-          <ThemeToggle/>
-          <Link href="/">Home</Link>
+          {/* <ThemeToggle/> */}
+          <Link className='navbar_links_home' href="/">Home</Link>
           <Link href="/results">Results</Link>
           <Link href="/admitcard">Admit Card</Link>
-          <Link href="/answerkey">Answer Key</Link>
+          {/* <Link href="/answerkey">Answer Key</Link> */}
           <Link href="/syllabus">Syllabus</Link>
           {/* <Link href="/material">Materials</Link> */}
-          <Link href="/testportal">Test Portal</Link>
-          <Link href="/contacts">Contacts</Link>
-          <Link href="/about">About</Link>
+          {/* <Link href="/testportal">Test Portal</Link> */}
+          <Link className='navbar_links_contacts' href="/contacts">Contacts</Link>
+          <Link className='navbar_links_about' href="/about">About</Link>
           {
           ((users.type === 'user' || users.type === 'admin' ) && users.isLogin)?(
             <div className="navbar_links_loglink">

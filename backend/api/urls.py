@@ -14,5 +14,12 @@ urlpatterns = [
     path('post/',api_views.JobPost.as_view()),
     # path('post/<advno:str>/',api_views.JobPost.as_view()), # Include post
     path('getadvno/<str:adv_no>/',api_views.getAdvNo),
-    path('getjobinfo/<str:link_post_name>/',api_views.getJobInfo),
+    path('getjobdetails/<str:link_post_name>/',api_views.getJobDetails),
+    path('getjobdetailspk/<int:pk>/',api_views.getJobDetailsPk),
+    
+    path('getjobinfo/',api_views.getJobInfo),
+    # path('getjobinfo/<int:pk>',api_views.getJobInfoPk),
+    # path('getjobinfo/<str:link_post_name>/',api_views.getJobInfo),
+    # getJobInfo?state=central
+    # path('getjobinfolist/<str:link_post_name>/',api_views.getJobInfo),
 ]

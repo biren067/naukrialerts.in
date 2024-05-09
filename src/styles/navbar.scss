@@ -3,8 +3,19 @@
 
 .navbar {
     display: flex;
+    width: 100%;
+    // position:static;
     justify-content: space-between;
     align-items: center;
+    // background-color: #0469ce;
+    background-color:$backgroundPrimaryColor;
+    // color:#babfc5;
+    color:$headerLinkColor;
+    font-weight:400;
+    font-size: 15px;
+    text-transform:uppercase;
+    padding:20px 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
     // &_social {
     //     padding-left:2px;
     //     padding-right:2px;
@@ -29,11 +40,36 @@
         // justify-content: center;
         width:fit-content;
         align-items: center;
-        font-size: 12px;
-        font-weight: 600;
+        // font-size: 12px;
+        // font-weight: 600;
         gap:15px;
         // flex:1;
         white-space: nowrap;
+        &_home{
+            // border-bottom: 4px solid transparent;
+            &:hover{
+                cursor: pointer;
+                color:$TextLinkMoverOverColor;
+                // border-bottom: 4px solid $borderColor;
+            }
+        }
+        &_contacts{
+            // border-bottom: 4px solid transparent;
+            &:hover{
+                cursor: pointer;
+                color:$TextLinkMoverOverColor;
+                // border-bottom: 4px solid $borderColor;
+            }
+        }
+        &_about{
+            // border-bottom: 4px solid transparent;
+            // margi-bottom:5px;
+            &:hover{
+                cursor: pointer;
+                color:$TextLinkMoverOverColor;
+                // border-bottom: 4px solid $borderColor;
+            }
+        }
         &_loglink{
             display: flex;
             gap:15px;

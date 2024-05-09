@@ -8,7 +8,7 @@ import '@/styles/layout.scss';
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import ReduxProvider from "@/redux/ReduxProvider";
-import SideBar from "@/components/sidebar/SideBar";
+// import SideBar from "@/components/sidebar/SideBar";
 // import { useSelector } from 'react-redux'
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,14 +27,14 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className={inter.className}>
           <div className="container">
-            <div className="wrapper">
+            {/* <div className="wrapper"> */}
               <Header/>
               <div className="layout">
-                <SideBar/>
+                {/* <SideBar/> */}
                 <div className="layout_children">{children}</div>
               </div>
               <Footer/>
-            </div>
+            {/* </div> */}
           </div>
         </body>
       </html>

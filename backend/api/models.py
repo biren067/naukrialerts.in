@@ -3,6 +3,7 @@ from django.db import models
 # from tinymce.models import HTMLField
 
 class Post(models.Model):
+    id = models.AutoField(primary_key=True)
     adv_no = models.CharField(max_length=200, null=False)
     post_name = models.CharField(max_length=500, null=False,unique=True)
     link_post_name = models.CharField(max_length=500, null=False)

@@ -46,10 +46,45 @@ def getAdvNo(request,*args,**kwargs):
     return Response('valid advertisement',status.HTTP_200_OK)
 
 
+# @api_view(['GET'])
+# def getJobInfo(request, link_post_name, *args, **kwargs):
+#     query_set = Post.objects.filter(link_post_name=link_post_name)
+#     print("********query_set",query_set)
+#     serializer = PostSerializer(query_set, many=True)  # Use many=True if queryset can have multiple objects
+#     if serializer.data:
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+#     return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
+
 @api_view(['GET'])
-def getJobInfo(request, link_post_name, *args, **kwargs):
+def getJobInfo(request, *args, **kwargs):
+    # print("******kwargs",kwargs, request.query_params,type(request.query_params))
+    if not request.query_params:
+        query_set = Post.objects.all()
+    else:
+        link_post_name = request.query_params.get('link_post_name')
+        query_set = Post.objects.filter(link_post_name=link_post_name)
+    # print("********query_set",query_set,link_post_name)
+    serializer = PostSerializer(query_set, many=True)  # Use many=True if queryset can have multiple objects
+    if serializer.data:
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+def getJobDetails(request, link_post_name,*args, **kwargs):
     query_set = Post.objects.filter(link_post_name=link_post_name)
     serializer = PostSerializer(query_set, many=True)  # Use many=True if queryset can have multiple objects
+    if serializer.data:
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
+
+
+@api_view(['GET'])
+def getJobDetailsPk(request, pk,*args, **kwargs):
+    print("********************************",pk)
+    query_set = Post.objects.get(id=pk)
+    serializer = PostSerializer(query_set)  # Use many=True if queryset can have multiple objects
     if serializer.data:
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)

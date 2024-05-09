@@ -1,18 +1,20 @@
 
 // import CardList from '@/components/cartList/CardList';
 import CategoryList from '@/components/categoryList/CategoryList';
-import Features from '@/components/features/Features';
+// import Features from '@/components/features/Features';
 // import PopularMenu from '@/components/popularMenu/PopularMenu';
-import styles from '@/styles/globals.scss'
-import '@/styles/cardcontainer.scss';
+import '@/styles/globals.scss'
+// import '@/styles/cardcontainer.scss';
 import CardContainer from '@/components/cardContainer/CardContainer';
+import FilterArea from '@/components/bodyTop/FilterArea';
 
 export default function Home() {
   return (
-    <div className={`${styles.container}`}>
+    <div>
 
-      <Features/>
-      <CategoryList/>
+      {/* <Features/> */}
+      {/* <CategoryList/> */}
+      <FilterArea/>
       <CardContainer/>             
     </div>
   );
