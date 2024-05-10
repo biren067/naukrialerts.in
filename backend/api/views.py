@@ -5,7 +5,10 @@ from rest_framework import status
 from .models import Post
 from .serializers import PostSerializer
 from rest_framework.decorators import api_view
-# {"title":"ada 2023","post_name":"bank PO"}
+import random
+from datetime import datetime, timedelta
+
+import string
 
 def commonResponse(data,status_code=status.HTTP_200_OK):
     responseJSON = dict({
@@ -88,3 +91,251 @@ def getJobDetailsPk(request, pk,*args, **kwargs):
     if serializer.data:
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def getStateAndCategory(request,*args, **kwargs):
+    state = request.query_params.get('state')
+    categories = request.query_params.get('categories')
+    pageNumber = request.query_params.get('pagenumber')
+    pageSize = request.query_params.get('pageSize')
+    if not pageNumber:
+        pageNumber = 10
+    print("state::",state)
+    print("categories::",categories)
+    print("pageNumber::",pageNumber)
+    print("pageSize::",pageSize)
+    return Response({"message":"fine"},status=status.HTTP_200_OK)
+
+
+
+@api_view(['GET'])
+def storeJobRandom(request,*args, **kwargs):
+    categories= ['Banking','Defence','Engineering','Finance','Teaching','UPSC','Railways','State SSC','defence','Miscelleneous']
+    states_union_territories = ['Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Delhi','Goa',
+    'Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur',
+    'Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand',
+    'West Bengal','Andaman and Nicobar Islands',
+    ]
+    def generate_random_string(min_words, max_words):
+        num_words = random.randint(min_words, max_words)
+        random_words = [random.choice(words) for _ in range(num_words)]
+        random_string = ' '.join(random_words)
+        return random_string
+
+    def generate_random_strings(n, min_words, max_words):
+        random_strings = [generate_random_string(min_words, max_words) for _ in range(n)]
+        statement = ' '.join(random_strings)
+        return statement
+    
+    number_of_records = 20
+    lst = list()
+    for num in range(number_of_records):
+        random_state = random.choice(states_union_territories)
+        random_categories = random.choice(categories)
+        
+        current_date = datetime.now()
+        end_date = current_date + timedelta(days=60)  # Adding 60 days to get the date 2 months from now
+        random_date = current_date + timedelta(days=random.randint(0, (end_date - current_date).days))
+        random_date =  random_date.strftime("%Y-%m-%d")
+
+
+        words = ["apple", "banana", "orange", "grape", "kiwi", "peach", "pear", "melon", "pineapple", "strawberry"]
+
+
+        # Example usage:
+        n = 5  # Number of random statements
+        min_words = 9  # Minimum number of words per statement
+        max_words = 20  # Maximum number of words per statement
+        random_statements = generate_random_strings(n, min_words, max_words)
+        print("**********",random_statements,type(random_statements))
+        string_with_hyphens = random_statements.replace(" ", "-")
+        string_with_hyphens = string_with_hyphens[:50]
+        string_with_hyphens = string_with_hyphens[0:string_with_hyphens.rfind("-")]
+        end = 50 if len(random_statements)>50 else len(random_statements)
+        post_name = random_statements[:end]
+        dt = dict()
+        dt['adv_no'] = 'ADV_NO_'+str(random.randint(1,1000))
+        
+        dt['post_name'] = post_name
+        dt['link_post_name'] = post_name.replace(" ","-")
+        dt['category_name'] = random_categories
+        dt['sub_category_name'] = random.choice(words)
+        dt['state_ut'] = random_state
+        
+        dt['post_date'] = random_date
+        dt['short_desc'] = random_statements
+        dt['total_vacancy'] = 549
+        dt['gen_fees'] = 300
+        dt['others_fees'] = 200
+        dt['ph_fees'] = 50
+        dt['app_begin_date'] = random_date
+        dt['app_last_date'] = random_date
+        dt['app_last_fees_date'] = random_date
+        dt['exam_date'] = random_date
+        dt['prelim_exam_date'] = random_date
+        dt['main_exam_date'] = random_date
+        dt['interview_exam_date'] = random_date
+        dt['result_exam_date'] = random_date
+        dt['general_vacancy'] = 300
+        dt['obc_vacancy'] = 300
+        dt['sc_vacancy'] = 300
+        dt['st_vacancy'] = 300
+        dt['age_info'] = 'birendra kumar'
+        dt['max_age'] = 30
+        dt['min_age'] = 30
+        dt['relaxation'] = 30
+        dt['education'] = "MCA Graduate"
+        dt['detail_desc'] = 'not availagle'
+        dt['apply_online'] = 'https://www.google.com'
+        dt['official_website'] = 'https://www.google.com'
+        dt['app_notifications'] = 'https://www.google.com'
+        dt['medical_std '] = 'perfect eye sites'
+        lst.append(dt)
+
+    for row in lst:
+        serializer = PostSerializer(data=row)
+        if serializer.is_valid():
+            serializer.save()
+            # print(":::=>",serializer.data)
+            # return Response(serializer.data)
+        else:
+            print("*******************ERROR",serializer.errors)
+            # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    print("dictionary::",lst)
+    return Response({"message":{"state":random_state,"categoies":random_categories,"date":random_date,"random_string":random_statements,"link":string_with_hyphens}}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def getStateAndCategoryPaginations(request,*args, **kwargs):
+    pageSize = request.GET.get('pageSize', 10)  # Default page size is 10
+    pageNumber = request.GET.get('pageNumber', 1)  # Default page number is 1
+    pageSize = int(pageSize)
+    pageNumber = int(pageNumber)
+
+    state = request.query_params.get('state')
+    categories = request.query_params.get('categories')
+    # pageNumber = request.query_params.get('pagenumber')
+    # pageSize = request.query_params.get('pageSize')
+    # if not pageSize:
+    #     pageSize = 1
+    # if not pageNumber:
+    #     pageNumber = 1
+    if state and categories:
+        query_set = Post.objects.filter(state=state, categories=categories)
+    elif state:
+        query_set = Post.objects.filter(state=state)
+    elif categories:
+        query_set = Post.objects.filter(categories=categories)
+    else:
+        query_set = Post.objects.all()
+    print("pageSize:",type(pageSize),pageSize)
+    print("pageNubmer:",type(pageNumber),pageNumber)
+    startPage = pageSize * pageNumber
+    endPage = startPage + pageSize
+    print("First Query Set",query_set)
+    slice_query_set = query_set[startPage:endPage]
+    print(slice_query_set,slice_query_set.count())
+    serializer = PostSerializer(slice_query_set, many=True)    
+    if serializer.data:
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response({"message":"Not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    # print("state::",state)
+    # print("categories::",categories)
+    # print("pageNumber::",pageNumber)
+    # print("pageSize::",pageSize)
+    # return Response({"message":"fine"},status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def storeRandom(request,*args, **kwargs):
+    categories= [
+   'Banking',
+   'Defence',
+   'Engineering',
+   'Finance',
+   'Teaching',
+   'UPSC',
+   'Railways',
+   'State SSC',
+   'defence',
+   'Miscelleneous'
+]
+    states_union_territories = [
+   'Andhra Pradesh',
+   'Arunachal Pradesh',
+   'Assam',
+   'Bihar',
+   'Chhattisgarh',
+   'Delhi',
+   'Goa',
+   'Gujarat',
+   'Haryana',
+   'Himachal Pradesh',
+   'Jharkhand',
+   'Karnataka',
+   'Kerala',
+   'Madhya Pradesh',
+   'Maharashtra',
+   'Manipur',
+   'Meghalaya',
+   'Mizoram',
+   'Nagaland',
+   'Odisha',
+   'Punjab',
+   'Rajasthan',
+   'Sikkim',
+   'Tamil Nadu',
+   'Telangana',
+   'Tripura',
+   'Uttar Pradesh',
+   'Uttarakhand',
+   'West Bengal',
+   'Andaman and Nicobar Islands',
+]
+    random_state = random.choice(states_union_territories)
+    print("Random state:", random_state)
+
+    random_categories = random.choice(categories)
+    print("Random categories:", random_categories)
+
+    current_date = datetime.now()
+    end_date = current_date + timedelta(days=60)  # Adding 60 days to get the date 2 months from now
+
+    random_date = current_date + timedelta(days=random.randint(0, (end_date - current_date).days))
+    random_date =  random_date.strftime("%Y-%m-%d")
+
+# List of words to generate random strings
+    words = ["apple", "banana", "orange", "grape", "kiwi", "peach", "pear", "melon", "pineapple", "strawberry"]
+
+    def generate_random_string(min_words, max_words):
+        # Generate a random number of words between min_words and max_words
+        num_words = random.randint(min_words, max_words)
+        
+        # Choose random words from the list 'words'
+        random_words = [random.choice(words) for _ in range(num_words)]
+        
+        # Join the words into a single string
+        random_string = ' '.join(random_words)
+        
+        return random_string
+
+    def generate_random_strings(n, min_words, max_words):
+        # Generate n random strings
+        random_strings = [generate_random_string(min_words, max_words) for _ in range(n)]
+        
+        # Join all strings into a single statement
+        statement = '\n'.join(random_strings)
+        
+        return statement
+
+    # Example usage:
+    n = 5  # Number of random statements
+    min_words = 9  # Minimum number of words per statement
+    max_words = 20  # Maximum number of words per statement
+
+    random_statements = generate_random_strings(n, min_words, max_words)
+    print(random_statements)
+
+    string_with_hyphens = random_statements.replace(" ", "-")
+
+    return Response({"message":{"state":random_state,"categoies":random_categories,"date":random_date,"random_string":random_statements,"link":string_with_hyphens}}, status=status.HTTP_200_OK)

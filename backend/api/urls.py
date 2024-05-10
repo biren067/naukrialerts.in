@@ -18,8 +18,18 @@ urlpatterns = [
     path('getjobdetailspk/<int:pk>/',api_views.getJobDetailsPk),
     
     path('getjobinfo/',api_views.getJobInfo),
-    # path('getjobinfo/<int:pk>',api_views.getJobInfoPk),
-    # path('getjobinfo/<str:link_post_name>/',api_views.getJobInfo),
-    # getJobInfo?state=central
-    # path('getjobinfolist/<str:link_post_name>/',api_views.getJobInfo),
+    path('storerandom/',api_views.storeRandom),
+    path('storejobrandom/',api_views.storeJobRandom),
+    # API: based on pagination + state + categories ( pagination+state+categories)
+    path('getstateandcategory/',api_views.getStateAndCategory),
+    # api for state and category and pagination
+    path('getstateandcategorypaginations/',api_views.getStateAndCategoryPaginations) # DOND
+    # http://localhost:8000/api/getstateandcategorypaginations?pagenumber=2&pageSize=3
 ]
+
+# ======= More research on results and admit card ===========
+# ======= More research on Job posting page =================
+# Three API is required job + state + category + pagination
+# === 1. Job + state + category + pagination ======================================= COMPLETED
+# === 2. Results + state + category + pagination
+# === 3. admin_card + state + category + pagination
