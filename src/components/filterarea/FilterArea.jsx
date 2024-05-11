@@ -72,7 +72,7 @@ function FilterArea({state,category,pagesize,pagenumber}) {
   useEffect(() => {
     // const url = `http://localhost:8000/api/getstateandcategorypaginations?state=${stateValue}&categories${categoryValue}&pagesize=${pagesize}&pagenuber=${pagenumber}`
     // console.log("****** onPage Load",url)
-    console.log("******useEffect called........")
+    console.log("******useEffect called........**********************Bond",urlValue)
     fetchJob(urlValue)
   },[urlValue,stateValue,categoryValue])
 

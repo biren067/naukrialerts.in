@@ -6,6 +6,7 @@ from .models import Post
 from .serializers import PostSerializer
 from rest_framework.decorators import api_view
 import random
+import math
 from datetime import datetime, timedelta
 
 import string
@@ -221,8 +222,8 @@ def storeJobRandom(request,records,*args, **kwargs):
 
 @api_view(['GET'])
 def getStateAndCategoryPaginations(request,*args, **kwargs):
-    pageSize = request.GET.get('pageSize', 10)  # Default page size is 10
-    pageNumber = request.GET.get('pageNumber', 1)  # Default page number is 1
+    pageSize = request.GET.get('pagesize', 10)  # Default page size is 10
+    pageNumber = request.GET.get('pagenumber', 1)  # Default page number is 1
     pageSize = int(pageSize)
     pageNumber = int(pageNumber)
 
@@ -242,19 +243,54 @@ def getStateAndCategoryPaginations(request,*args, **kwargs):
         query_set = Post.objects.filter(category_name=categories)
     else:
         query_set = Post.objects.all()
+    print("Query set from Database:",len(query_set))
     print("pageSize:",type(pageSize),pageSize)
     print("pageNubmer:",type(pageNumber),pageNumber)
+    endIndex = (pageNumber * pageSize) - 1
+    startIndex = endIndex - pageSize + 1
+
     startPage = pageSize  * (pageNumber - 1)
     endPage = startPage + pageSize
-    
+    isFirtPage = True if pageNumber == 1 else False
+    # isLastPage = True if ( (pageSize*pageNumber) - pageSize) == startIndex else False
+    numberOfPages = math.ceil(len(query_set)/pageSize)
+    isLastPage = True if math.ceil(len(query_set)/pageSize) == pageNumber else False
+    print("isLostPage Value:::::::::::",math.ceil(len(query_set)/pageSize), len(query_set)/pageSize == pageNumber)
 
     endPage = pageSize if len(query_set) >= pageSize else len(query_set)
     print("First Query Set",query_set,startPage,endPage)
-    slice_query_set = query_set[startPage:endPage]
+    print("StartIndex ::",startIndex)
+    print("EndIndex ::",endIndex)
+    slice_query_set = query_set[startIndex:endIndex+1]
     print("slice_query_set",slice_query_set)
-    serializer = PostSerializer(slice_query_set, many=True)    
+    serializer = PostSerializer(slice_query_set, many=True)  
+    totalCount = len(serializer.data)  
+    print("***************totalCount",totalCount)
+    
+    serializer.data.append({'totalCount' : totalCount})
+    serializer_data = serializer.data
+    serializer_data.append({"totalCount": totalCount})
     if serializer.data:
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        # response_data = {
+        # 'data': serializer.data,  # Your original response data
+        # '_page': {'totalCount': totalCount}  # Adding totalCount under _page key
+        # }
+        response_data = {
+        'records': serializer.data,  # Your original response data
+        'page': {'isFirstPage': isFirtPage,
+                 'isLastPage': isLastPage,
+                'totalCount': totalCount,
+                 'pageNumber':pageNumber,
+                 'pageSize':pageSize,
+                 'numberOfPages':numberOfPages,
+                 'startIndex':startIndex,
+                 'endIndex':endIndex,
+                 }  # Adding totalCount under _page key
+        }
+        # print("*********",type(serializer.data))
+        return Response(response_data, status=status.HTTP_200_OK)
+
+        # return Response(serializer.data, status=status.HTTP_200_OK)
     return Response({"message":"Not found"}, status=status.HTTP_200_OK)
 
     # print("state::",state)

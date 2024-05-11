@@ -8,7 +8,8 @@ import { useSelector } from 'react-redux'
 
 function CardList() {
   // const [items, setItems]=useState()
-  const items  = useSelector(state=>state.jobpost.jobList)
+  const items  = useSelector(state=>state.jobpost.jobList.records)
+  const pageInfo  = useSelector(state=>state.jobpost.jobList.page)
   // useEffect(()=>{
   //   const url=`http://localhost:8000/api/getjobinfo/`
   //           console.log("URL::",url)
@@ -28,23 +29,23 @@ function CardList() {
       {/* {JSON.stringify(items)} */}
       <div className='cardlist_title'>Recent Posts</div>
       <div className='cardlist_cards'>
-       {/* {items && items.map((item)=>{
+       {items && items.map((item)=>{
         return <Card title={item.post_name} category={item.category_name} id={item.id}/>
-      })} */}
+      })}
       {/* <div>{JSON.stringify(items)}</div> */}
-      {items.message ?
+      {/* {items.message ?
         (<div>No Data Available</div>)
         :
         (items.map((item)=>{
         return <Card title={item.post_name} category={item.category_name} id={item.id}/>
         })
-      )}
+      )} */}
     {/* {items ?(items.map((item)=>{
         return <Card title={item.post_name} category={item.category_name} id={item.id}/>
       })):(
         <div>No Data Available</div>
       ) } */}
-      <Pagination/>
+      <Pagination pageInfo={pageInfo}/>
       </div>
     </div>
   )
