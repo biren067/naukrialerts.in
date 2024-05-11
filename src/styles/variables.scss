@@ -16,7 +16,7 @@ $backgroundTernaryColor:#22282e;
 
 $textColor:black;
 $softTextColor:#626262;
-$darkTextColor:white;
+$TextWhiteColor:white;
 $TextButtonColor:#FFFFFF;
 $headerLinkColor:#babfc5;
 $TextLinkMoverOverColor:#d9dee4;
@@ -45,7 +45,7 @@ $LightAnswerColor:rgb(5, 128, 70);
     transition: all 0.2s ease-in-out;
     &:hover{
         background-color: $darkBackgroundColor;
-        color:$darkTextColor;
+        color:$TextWhiteColor;
         border: 1px solid $borderColor;
     }
 }

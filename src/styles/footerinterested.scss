@@ -1,0 +1,24 @@
+@import "variables";
+@import "breakpoints";
+
+
+.interested{
+    // margin:10px 5px;
+    padding:5px 5px;
+    background-color: $backgroundSecondaryColor;
+    color: $TextLinkMoverOverColor;
+    @include sm{
+        // margin: 5px 2px;
+        padding:5px 2px
+    }
+    &_header{
+        // background-color: $backgroundColor;
+        // color:$softTextColor;
+        font-size: 25px;
+        font-weight: 600;
+        @include sm{
+            font-size:15px;
+            font-weight: 600;
+        }
+    }
+}

@@ -110,12 +110,24 @@ def getStateAndCategory(request,*args, **kwargs):
 
 
 @api_view(['GET'])
-def storeJobRandom(request,*args, **kwargs):
-    categories= ['Banking','Defence','Engineering','Finance','Teaching','UPSC','Railways','State SSC','defence','Miscelleneous']
-    states_union_territories = ['Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Delhi','Goa',
-    'Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur',
-    'Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand',
-    'West Bengal','Andaman and Nicobar Islands',
+def storeJobRandom(request,records,*args, **kwargs):
+    categories= ['agriculture', 'banking','defence', 'engineering', 'insurance', 'judiciary', 'teaching', 'uPSC', 'railways', 'state SSC', 'nEET', 'miscelleneous',]
+    states_union_territories = [   'andhra pradesh',
+    'arunachal pradesh','assam',
+    'bihar','chhattisgarh',
+    'delhi','goa',
+    'gujarat','haryana',
+    'himachal Pradesh',
+    'jharkhand','karnataka',
+    'kerala','Mmadhya pradesh',
+    'maharashtra','manipur',
+    'meghalaya','mizoram',
+    'nagaland','odisha',
+    'punjab','rajasthan',
+    'sikkim','tamil nadu',
+    'telangana','tripura',
+    'uttar pradesh','uttarakhand',
+    'west bengal','andaman and nicobar islands',
     ]
     def generate_random_string(min_words, max_words):
         num_words = random.randint(min_words, max_words)
@@ -127,8 +139,9 @@ def storeJobRandom(request,*args, **kwargs):
         random_strings = [generate_random_string(min_words, max_words) for _ in range(n)]
         statement = ' '.join(random_strings)
         return statement
-    
-    number_of_records = 20
+    # request.data
+    number_of_records = records if records else 5
+    print("*******",records,number_of_records)
     lst = list()
     for num in range(number_of_records):
         random_state = random.choice(states_union_territories)
@@ -203,7 +216,8 @@ def storeJobRandom(request,*args, **kwargs):
             print("*******************ERROR",serializer.errors)
             # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     print("dictionary::",lst)
-    return Response({"message":{"state":random_state,"categoies":random_categories,"date":random_date,"random_string":random_statements,"link":string_with_hyphens}}, status=status.HTTP_200_OK)
+    totalRecords = Post.objects.all().count()
+    return Response({"message":"Stored"+str(totalRecords)}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def getStateAndCategoryPaginations(request,*args, **kwargs):
@@ -214,31 +228,34 @@ def getStateAndCategoryPaginations(request,*args, **kwargs):
 
     state = request.query_params.get('state')
     categories = request.query_params.get('categories')
-    # pageNumber = request.query_params.get('pagenumber')
-    # pageSize = request.query_params.get('pageSize')
+    # state = request.query_params.get('state')
+    # categories = request.query_params.get('categories')
     # if not pageSize:
     #     pageSize = 1
     # if not pageNumber:
     #     pageNumber = 1
     if state and categories:
-        query_set = Post.objects.filter(state=state, categories=categories)
+        query_set = Post.objects.filter(state_ut=state, category_name=categories)
     elif state:
-        query_set = Post.objects.filter(state=state)
+        query_set = Post.objects.filter(state_ut=state)
     elif categories:
-        query_set = Post.objects.filter(categories=categories)
+        query_set = Post.objects.filter(category_name=categories)
     else:
         query_set = Post.objects.all()
     print("pageSize:",type(pageSize),pageSize)
     print("pageNubmer:",type(pageNumber),pageNumber)
-    startPage = pageSize * pageNumber
+    startPage = pageSize  * (pageNumber - 1)
     endPage = startPage + pageSize
-    print("First Query Set",query_set)
+    
+
+    endPage = pageSize if len(query_set) >= pageSize else len(query_set)
+    print("First Query Set",query_set,startPage,endPage)
     slice_query_set = query_set[startPage:endPage]
-    print(slice_query_set,slice_query_set.count())
+    print("slice_query_set",slice_query_set)
     serializer = PostSerializer(slice_query_set, many=True)    
     if serializer.data:
         return Response(serializer.data, status=status.HTTP_200_OK)
-    return Response({"message":"Not found"}, status=status.HTTP_404_NOT_FOUND)
+    return Response({"message":"Not found"}, status=status.HTTP_200_OK)
 
     # print("state::",state)
     # print("categories::",categories)
@@ -246,96 +263,98 @@ def getStateAndCategoryPaginations(request,*args, **kwargs):
     # print("pageSize::",pageSize)
     # return Response({"message":"fine"},status=status.HTTP_200_OK)
 
-@api_view(['GET'])
-def storeRandom(request,*args, **kwargs):
-    categories= [
-   'Banking',
-   'Defence',
-   'Engineering',
-   'Finance',
-   'Teaching',
-   'UPSC',
-   'Railways',
-   'State SSC',
-   'defence',
-   'Miscelleneous'
-]
-    states_union_territories = [
-   'Andhra Pradesh',
-   'Arunachal Pradesh',
-   'Assam',
-   'Bihar',
-   'Chhattisgarh',
-   'Delhi',
-   'Goa',
-   'Gujarat',
-   'Haryana',
-   'Himachal Pradesh',
-   'Jharkhand',
-   'Karnataka',
-   'Kerala',
-   'Madhya Pradesh',
-   'Maharashtra',
-   'Manipur',
-   'Meghalaya',
-   'Mizoram',
-   'Nagaland',
-   'Odisha',
-   'Punjab',
-   'Rajasthan',
-   'Sikkim',
-   'Tamil Nadu',
-   'Telangana',
-   'Tripura',
-   'Uttar Pradesh',
-   'Uttarakhand',
-   'West Bengal',
-   'Andaman and Nicobar Islands',
-]
-    random_state = random.choice(states_union_territories)
-    print("Random state:", random_state)
+# @api_view(['GET'])
+# def storeRandom(request,*args, **kwargs):
+#     categories= [
+#    'agriculture',
+#    'banking',
+#    'defence',
+#    'engineering',
+#    'insurance',
+#    'judiciary',
+#    'teaching',
+#    'uPSC',
+#    'railways',
+#    'state SSC',
+#    'nEET',
+#    'miscelleneous',
+# ]
+#     states_union_territories = [
+#       'andhra pradesh',
+#    'arunachal pradesh',
+#    'assam',
+#    'bihar',
+#    'chhattisgarh',
+#    'delhi',
+#    'goa',
+#    'gujarat',
+#    'haryana',
+#    'himachal Pradesh',
+#    'jharkhand',
+#    'karnataka',
+#    'kerala',
+#    'Mmadhya pradesh',
+#    'maharashtra',
+#    'manipur',
+#    'meghalaya',
+#    'mizoram',
+#    'nagaland',
+#    'odisha',
+#    'punjab',
+#    'rajasthan',
+#    'sikkim',
+#    'tamil nadu',
+#    'telangana',
+#    'tripura',
+#    'uttar pradesh',
+#    'uttarakhand',
+#    'west bengal',
+#    'andaman and nicobar islands',
+# ]
+#     random_state = random.choice(states_union_territories)
+#     print("Random state:", random_state)
 
-    random_categories = random.choice(categories)
-    print("Random categories:", random_categories)
+#     random_categories = random.choice(categories)
+#     print("Random categories:", random_categories)
 
-    current_date = datetime.now()
-    end_date = current_date + timedelta(days=60)  # Adding 60 days to get the date 2 months from now
+#     current_date = datetime.now()
+#     end_date = current_date + timedelta(days=60)  # Adding 60 days to get the date 2 months from now
 
-    random_date = current_date + timedelta(days=random.randint(0, (end_date - current_date).days))
-    random_date =  random_date.strftime("%Y-%m-%d")
+#     random_date = current_date + timedelta(days=random.randint(0, (end_date - current_date).days))
+#     random_date =  random_date.strftime("%Y-%m-%d")
 
-# List of words to generate random strings
-    words = ["apple", "banana", "orange", "grape", "kiwi", "peach", "pear", "melon", "pineapple", "strawberry"]
+# # List of words to generate random strings
+#     words = ["apple", "banana", "orange", "grape", "kiwi", "peach", "pear", "melon", "pineapple", "strawberry"]
 
-    def generate_random_string(min_words, max_words):
-        # Generate a random number of words between min_words and max_words
-        num_words = random.randint(min_words, max_words)
+#     def generate_random_string(min_words, max_words):
+#         # Generate a random number of words between min_words and max_words
+#         num_words = random.randint(min_words, max_words)
         
-        # Choose random words from the list 'words'
-        random_words = [random.choice(words) for _ in range(num_words)]
+#         # Choose random words from the list 'words'
+#         random_words = [random.choice(words) for _ in range(num_words)]
         
-        # Join the words into a single string
-        random_string = ' '.join(random_words)
+#         # Join the words into a single string
+#         random_string = ' '.join(random_words)
         
-        return random_string
+#         return random_string
 
-    def generate_random_strings(n, min_words, max_words):
-        # Generate n random strings
-        random_strings = [generate_random_string(min_words, max_words) for _ in range(n)]
+#     def generate_random_strings(n, min_words, max_words):
+#         # Generate n random strings
+#         random_strings = [generate_random_string(min_words, max_words) for _ in range(n)]
         
-        # Join all strings into a single statement
-        statement = '\n'.join(random_strings)
+#         # Join all strings into a single statement
+#         statement = '\n'.join(random_strings)
         
-        return statement
+#         return statement
 
-    # Example usage:
-    n = 5  # Number of random statements
-    min_words = 9  # Minimum number of words per statement
-    max_words = 20  # Maximum number of words per statement
+#     # Example usage:
+#     n = 5  # Number of random statements
+#     min_words = 9  # Minimum number of words per statement
+#     max_words = 20  # Maximum number of words per statement
 
-    random_statements = generate_random_strings(n, min_words, max_words)
-    print(random_statements)
+#     random_statements = generate_random_strings(n, min_words, max_words)
+#     print(random_statements)
 
-    string_with_hyphens = random_statements.replace(" ", "-")
+#     string_with_hyphens = random_statements.replace(" ", "-")
 
-    return Response({"message":{"state":random_state,"categoies":random_categories,"date":random_date,"random_string":random_statements,"link":string_with_hyphens}}, status=status.HTTP_200_OK)
+#     return Response({"message":{"state":random_state,"categoies":random_categories,"date":random_date,"random_string":random_statements,"link":string_with_hyphens}}, status=status.HTTP_200_OK)

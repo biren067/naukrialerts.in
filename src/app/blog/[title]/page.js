@@ -7,6 +7,7 @@ import '@/styles/jobpost.scss'
 
 function page({params}) {
   const [jobInfo,setJobInfo] = useState()
+  // const items  = useSelector(state=>state.jobPost)
   console.log("**** Received Title::",params.title)
   const url=`http://localhost:8000/api/getjobdetails/${params.title}`
   console.log("URL::",url)
@@ -16,6 +17,7 @@ function page({params}) {
         console.log('get executed successful', response);
         if (response.status === 200) {
           setJobInfo(response.data); // Update jobInfo with response data
+          // setJobInfo(items) 
         } else {
           console.log("************", response.data, "::::", response.data.message)
           setJobInfo(null); // Update jobInfo to null if status is not 200

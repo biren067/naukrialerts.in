@@ -18,8 +18,8 @@ urlpatterns = [
     path('getjobdetailspk/<int:pk>/',api_views.getJobDetailsPk),
     
     path('getjobinfo/',api_views.getJobInfo),
-    path('storerandom/',api_views.storeRandom),
-    path('storejobrandom/',api_views.storeJobRandom),
+    # path('storerandom/',api_views.storeRandom),
+    path('storejobrandom/<int:records>',api_views.storeJobRandom),
     # API: based on pagination + state + categories ( pagination+state+categories)
     path('getstateandcategory/',api_views.getStateAndCategory),
     # api for state and category and pagination

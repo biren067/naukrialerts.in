@@ -12,7 +12,6 @@ function Card({category, title,id}) {
   useEffect(()=>{
     const formattedTitle = title.replace(/[^\w\s-]/g, '');
     const finalTitle = formattedTitle.toLowerCase().replace(/\s+/g, '-');
-    console.log("******FINAL FORMAT TITLE:", finalTitle)
     setFormattedTitle(finalTitle);
   },[title,formattedTitle])
   useEffect(()=>{   
@@ -47,6 +46,7 @@ function Card({category, title,id}) {
             <div className="card_info_top">
                 <div className="card_info_top_date">Last Date to apply: </div>
                 <div className="card_info_top_category">{postInfo.app_last_date}</div>
+                <div className="card_info_top_category">{postInfo.id}{postInfo.state_ut}-{postInfo.category_name}</div>
             </div>
             <div className="card_info_description">{postInfo.short_desc.length > 200 ? (
               <>

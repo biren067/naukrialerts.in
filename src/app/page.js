@@ -6,7 +6,7 @@ import CategoryList from '@/components/categoryList/CategoryList';
 import '@/styles/globals.scss'
 // import '@/styles/cardcontainer.scss';
 import CardContainer from '@/components/cardContainer/CardContainer';
-import FilterArea from '@/components/bodyTop/FilterArea';
+import FilterArea from '@/components/filterarea/FilterArea';
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
 
       {/* <Features/> */}
       {/* <CategoryList/> */}
-      <FilterArea/>
+      <FilterArea pagesize={5} pagenumber={1}/>
       <CardContainer/>             
     </div>
   );
